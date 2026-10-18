@@ -1,4 +1,4 @@
-/* Layout: a matte burgundy envelope on a near-black ground, closed with a bronze heart seal. Tapping the seal lifts the flap, a deckled handmade card slides out and the envelope fades away. */
+/* Layout: a kraft-paper envelope on a near-black ground, closed with a red wax seal and addressed by hand. Tapping the seal lifts the flap, a deckled handmade card slides out and the envelope fades away. */
   :root {
     --night: #19060a;
     --night-hi: #2b0b12;
@@ -7,6 +7,7 @@
     --rim: #faf6ec;
     --ink: #3a0e18;
     --bronze-hi: #cdb98e;
+    --pen: #232b45;
     --env-h: 270px;
     --tuck: 60px;
     --card-h: 640px;
@@ -40,8 +41,11 @@
 
   .env-back {
     position: absolute; z-index: 0; left: -14px; right: -14px; bottom: 0; height: var(--env-h);
-    background: linear-gradient(180deg, #230709 0%, #3a0d15 100%); border-radius: 3px;
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+    /* the red tissue liner you see inside once the flap is open */
+    background: radial-gradient(circle, rgba(232, 201, 160, 0.16) 0.8px, transparent 1.3px) 0 0 / 9px 9px,
+                linear-gradient(180deg, #3d1015 0%, #6a1f27 100%);
+    border-radius: 2px;
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.5);
   }
 
   .slot {
@@ -93,29 +97,26 @@
 
   .front {
     position: absolute; z-index: 2; left: -14px; bottom: 0; width: calc(100% + 28px); height: var(--env-h);
-    display: block; pointer-events: none; filter: drop-shadow(0 -3px 8px rgba(0, 0, 0, 0.4));
+    display: block; pointer-events: none; filter: drop-shadow(0 -2px 5px rgba(0, 0, 0, 0.3));
   }
-  /* gold foil details printed on the front of the envelope: two blossom sprigs and a dedication under the seal */
+  /* pen on kraft paper: a hand-written line, an uneven underline and a small doodle */
   .deco {
     position: absolute; z-index: 2; left: -14px; bottom: 0; width: calc(100% + 28px); height: var(--env-h);
-    pointer-events: none; color: var(--bronze-hi);
+    pointer-events: none; color: var(--pen);
   }
-  .sprig { position: absolute; bottom: 14px; width: 54px; height: auto; display: block; opacity: 0.85; filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.35)); }
-  .sprig-l { left: 18px; }
-  .sprig-r { right: 18px; transform: scaleX(-1); }
-  .deco-to { position: absolute; left: 0; right: 0; bottom: 24px; text-align: center; }
+  .deco-to { position: absolute; left: 0; right: 0; bottom: 26px; text-align: center; transform: translateX(-6px) rotate(-3deg); }
   .deco-to p {
-    margin: 0; font-family: var(--script); font-size: clamp(1.5rem, 6.4vw, 1.9rem); line-height: 1.1;
-    color: var(--bronze-hi); text-shadow: 0 1px 0 rgba(0, 0, 0, 0.45);
+    margin: 0; font-family: "Caveat", "Segoe Script", cursive; font-weight: 600;
+    font-size: clamp(1.9rem, 8vw, 2.3rem); line-height: 1; color: var(--pen);
+    opacity: 0.88; mix-blend-mode: multiply; filter: url(#inkFx);
   }
-  .deco-rule { display: flex; align-items: center; gap: 8px; width: 46%; margin: 4px auto 0; opacity: 0.65; }
-  .deco-rule::before, .deco-rule::after { content: ""; flex: 1; height: 1px; background: currentColor; opacity: 0.7; }
-  .deco-rule b { width: 5px; height: 5px; background: currentColor; transform: rotate(45deg); display: block; flex: none; }
+  .scribble { display: block; width: 104px; height: auto; margin: 2px auto 0; opacity: 0.8; mix-blend-mode: multiply; transform: rotate(1.5deg); }
+  .heart { position: absolute; right: calc(50% - 92px); bottom: 52px; width: 19px; height: auto; opacity: 0.8; mix-blend-mode: multiply; transform: rotate(11deg); }
 
   .flap {
     position: absolute; z-index: 3; left: -14px; bottom: calc(var(--env-h) - 150px); width: calc(100% + 28px); height: 150px;
     display: block; transform-origin: 50% 0; pointer-events: none; will-change: transform;
-    filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.4));
+    filter: drop-shadow(0 4px 5px rgba(40, 20, 5, 0.38));
   }
   .flap .face-in { opacity: 0; transition: opacity 0.2s linear 0.35s; }
   .flap .face-out { transition: opacity 0.2s linear 0.35s; }
@@ -124,20 +125,16 @@
   .pocket.open .flap .face-out { opacity: 0; }
 
   .seal {
-    position: absolute; z-index: 4; left: 50%; bottom: 78px; width: 84px; height: 84px; margin-left: -42px;
+    position: absolute; z-index: 4; left: 50%; bottom: 74px; width: 92px; height: 92px; margin-left: -46px;
     border: 0; padding: 0; background: transparent; cursor: pointer; border-radius: 50%;
-    filter: drop-shadow(0 5px 7px rgba(0, 0, 0, 0.55));
+    filter: drop-shadow(1px 4px 4px rgba(40, 15, 5, 0.5));
+    transform: rotate(-8deg);
     transition: transform 0.25s ease;
   }
   .seal svg { width: 100%; height: 100%; display: block; }
-  .seal:hover { transform: scale(1.05) rotate(-3deg); }
+  .seal:hover { transform: rotate(-4deg) scale(1.03); }
   .seal:focus-visible { outline: 3px solid var(--bronze-hi); outline-offset: 4px; }
-  .seal::after {
-    content: ""; position: absolute; inset: 4px; border-radius: 50%;
-    box-shadow: 0 0 0 0 rgba(205, 185, 142, 0.5); animation: pulse 2.4s ease-out infinite;
-  }
   .pocket.open .seal { pointer-events: none; animation: seal-away 0.5s ease forwards; }
-  .pocket.open .seal::after { animation: none; }
 
   .hint { text-align: center; font-size: 0.98rem; letter-spacing: 0.06em; color: rgba(239, 232, 214, 0.72); margin: 0; }
 
@@ -165,7 +162,6 @@
     35% { transform: scale(1.18) translateY(-4px); opacity: 1; }
     100% { transform: scale(0.5) translateY(-30px); opacity: 0; }
   }
-  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(205, 185, 142, 0.5); } 70%, 100% { box-shadow: 0 0 0 20px rgba(205, 185, 142, 0); } }
   @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
   @keyframes fall {
     0% { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 0.95; }
@@ -174,5 +170,4 @@
   @media (prefers-reduced-motion: reduce) {
     .stage, .pocket, .card, .seal, .env-back, .front, .deco, .flap, .flap .face-in, .flap .face-out { transition: none; }
     .pocket.open .flap, .pocket.open .seal, .note { animation-duration: 0.01s; }
-    .seal::after { animation: none; }
   }
