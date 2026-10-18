@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Thiệp 20/10</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&family=Caveat:wght@500;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&display=swap">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -28,55 +28,19 @@
       <feTurbulence type="fractalNoise" baseFrequency="0.4" numOctaves="2" seed="3" result="fiber"/>
       <feDisplacementMap in="d1" in2="fiber" scale="4" xChannelSelector="G" yChannelSelector="R"/>
     </filter>
-
-    <!-- kraft paper: fine grain + uneven blotchy tone + a few dark flecks -->
     <filter id="envGrain" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
-      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="4" result="n"/>
-      <feColorMatrix in="n" type="matrix" values="0.18 0 0 0 0.82  0.18 0 0 0 0.82  0.18 0 0 0 0.82  0 0 0 0 1" result="g"/>
-      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="3" seed="8" result="m"/>
-      <feColorMatrix in="m" type="matrix" values="0.4 0 0 0 0.72  0.4 0 0 0 0.72  0.4 0 0 0 0.72  0 0 0 0 1" result="mot"/>
-      <feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="1" seed="21" result="s"/>
-      <feColorMatrix in="s" type="matrix" values="0 0 0 0 0.28  0 0 0 0 0.17  0 0 0 0 0.08  5 0 0 0 -3.35" result="sp"/>
-      <feBlend in="SourceGraphic" in2="g" mode="multiply" result="b1"/>
-      <feBlend in="b1" in2="mot" mode="multiply" result="b2"/>
-      <feMerge result="b3"><feMergeNode in="b2"/><feMergeNode in="sp"/></feMerge>
-      <feComposite in="b3" in2="SourceAlpha" operator="in"/>
+      <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="2" seed="4" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0.14 0 0 0 0.86  0.14 0 0 0 0.86  0.14 0 0 0 0.86  0 0 0 0 1" result="g"/>
+      <feBlend in="SourceGraphic" in2="g" mode="multiply" result="b"/>
+      <feComposite in="b" in2="SourceAlpha" operator="in"/>
     </filter>
-    <filter id="blur3" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="3.5"/></filter>
-
-    <!-- ink: slightly uneven edge, like a pen on rough paper -->
-    <filter id="inkFx" x="-5%" y="-10%" width="110%" height="120%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="6" result="w"/>
-      <feDisplacementMap in="SourceGraphic" in2="w" scale="1.8" xChannelSelector="R" yChannelSelector="G" result="d"/>
-      <feGaussianBlur in="d" stdDeviation="0.25"/>
-    </filter>
-
-    <!-- red wax: lumpy edge, soft rounded highlights -->
-    <filter id="waxFx" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
-      <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="2" seed="9" result="w"/>
-      <feDisplacementMap in="SourceGraphic" in2="w" scale="5" xChannelSelector="R" yChannelSelector="G" result="shape"/>
-      <feGaussianBlur in="shape" stdDeviation="2.4" result="bl"/>
-      <feSpecularLighting in="bl" surfaceScale="5" specularConstant="0.9" specularExponent="22" lighting-color="#ffd6cc" result="spec">
-        <feDistantLight azimuth="235" elevation="48"/>
-      </feSpecularLighting>
-      <feComposite in="spec" in2="shape" operator="in" result="specIn"/>
-      <feComposite in="shape" in2="specIn" operator="arithmetic" k1="0" k2="1" k3="0.9" k4="0"/>
-    </filter>
-    <filter id="pressFx" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
-      <feGaussianBlur in="SourceAlpha" stdDeviation="1.1" result="b"/>
-      <feSpecularLighting in="b" surfaceScale="3" specularConstant="0.8" specularExponent="16" lighting-color="#ffcfc4" result="s">
-        <feDistantLight azimuth="235" elevation="45"/>
-      </feSpecularLighting>
-      <feComposite in="s" in2="SourceAlpha" operator="in" result="sIn"/>
-      <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="sIn"/></feMerge>
-    </filter>
-
-    <!-- tissue-like liner print inside the flap -->
-    <pattern id="linerPat" width="9" height="9" patternUnits="userSpaceOnUse">
-      <circle cx="2.2" cy="2.2" r="0.8" fill="#e8c9a0" fill-opacity="0.2"/>
-      <circle cx="6.7" cy="6.7" r="0.8" fill="#e8c9a0" fill-opacity="0.2"/>
+    <pattern id="envPat" width="28" height="28" patternUnits="userSpaceOnUse">
+      <path d="M14 8.5 L15.5 12.5 L19.5 14 L15.5 15.5 L14 19.5 L12.5 15.5 L8.5 14 L12.5 12.5Z" fill="#e6c9a2" fill-opacity="0.13"/>
+      <circle cx="0" cy="0" r="1.1" fill="#e6c9a2" fill-opacity="0.12"/>
+      <circle cx="28" cy="0" r="1.1" fill="#e6c9a2" fill-opacity="0.12"/>
+      <circle cx="0" cy="28" r="1.1" fill="#e6c9a2" fill-opacity="0.12"/>
+      <circle cx="28" cy="28" r="1.1" fill="#e6c9a2" fill-opacity="0.12"/>
     </pattern>
-
     <symbol id="bloom" viewBox="0 0 20 20">
       <g fill="currentColor">
         <ellipse cx="10" cy="4.6" rx="2.6" ry="4.2"/>
@@ -117,67 +81,104 @@
 
     <svg class="front" viewBox="0 0 400 270" preserveAspectRatio="none" aria-hidden="true">
       <defs>
-        <linearGradient id="frontL" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c9a678"/><stop offset="1" stop-color="#bb9769"/></linearGradient>
-        <linearGradient id="frontR" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c5a273"/><stop offset="1" stop-color="#b58f61"/></linearGradient>
-        <linearGradient id="frontB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c3a072"/><stop offset="1" stop-color="#ad895a"/></linearGradient>
+        <linearGradient id="frontL" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7a2230"/><stop offset="1" stop-color="#5a1722"/></linearGradient>
+        <linearGradient id="frontR" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5e1824"/><stop offset="1" stop-color="#430f19"/></linearGradient>
+        <linearGradient id="frontB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4d121b"/><stop offset="1" stop-color="#340a11"/></linearGradient>
       </defs>
       <g filter="url(#envGrain)">
         <polygon points="0,0 200,150 0,270" fill="url(#frontL)"/>
         <polygon points="400,0 200,150 400,270" fill="url(#frontR)"/>
-        <!-- shadow the bottom flap throws on the side flaps -->
-        <polygon points="0,266 200,146 400,266" fill="#3a2008" fill-opacity="0.42" filter="url(#blur3)"/>
         <polygon points="0,270 200,150 400,270" fill="url(#frontB)"/>
+        <polygon points="0,0 200,150 0,270" fill="url(#envPat)"/>
+        <polygon points="400,0 200,150 400,270" fill="url(#envPat)"/>
+        <polygon points="0,270 200,150 400,270" fill="url(#envPat)"/>
       </g>
-      <polyline points="0,0 200,150 400,0" fill="none" stroke="rgba(70,40,12,0.22)" stroke-width="1"/>
-      <polyline points="0,270 200,150 400,270" fill="none" stroke="rgba(70,40,12,0.3)" stroke-width="1"/>
-      <polyline points="0,271.3 200,151.3 400,271.3" fill="none" stroke="rgba(255,238,205,0.38)" stroke-width="1"/>
-      <rect x="0.5" y="0.5" width="399" height="269" fill="none" stroke="rgba(70,40,12,0.3)" stroke-width="1" vector-effect="non-scaling-stroke"/>
+      <path d="M9 9 V261 H391 V9" fill="none" stroke="#cdb98e" stroke-opacity="0.5" stroke-width="1" stroke-dasharray="4 4" vector-effect="non-scaling-stroke"/>
+      <polyline points="0,0 200,150 400,0" fill="none" stroke="rgba(255,190,170,0.13)" stroke-width="1"/>
+      <polyline points="0,270 200,150 400,270" fill="none" stroke="rgba(255,190,170,0.08)" stroke-width="1"/>
     </svg>
 
-    <!-- hand-written address and a small doodle, in pen -->
     <div class="deco" aria-hidden="true">
+      <svg class="sprig sprig-l" viewBox="0 0 64 150">
+        <g fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
+          <path d="M26 148 C 22 120 38 100 30 74 C 24 54 36 34 34 14"/>
+          <path d="M28 126 C 19 120 13 112 11 103"/>
+          <path d="M31 92 C 42 86 50 78 53 67"/>
+          <path d="M30 64 C 23 58 18 50 18 41"/>
+        </g>
+        <g fill="currentColor" fill-opacity="0.8">
+          <ellipse cx="17" cy="136" rx="3" ry="7" transform="rotate(-58 17 136)"/>
+          <ellipse cx="35" cy="120" rx="3" ry="7" transform="rotate(58 35 120)"/>
+          <ellipse cx="22" cy="86" rx="3" ry="7" transform="rotate(-58 22 86)"/>
+          <ellipse cx="41" cy="104" rx="3" ry="7" transform="rotate(55 41 104)"/>
+          <ellipse cx="40" cy="50" rx="3" ry="6.5" transform="rotate(58 40 50)"/>
+          <ellipse cx="27" cy="28" rx="2.8" ry="6" transform="rotate(-55 27 28)"/>
+        </g>
+        <use href="#bloom" x="23" y="3" width="22" height="22"/>
+        <use href="#bloom" x="2" y="94" width="17" height="17"/>
+        <use href="#bloom" x="44" y="58" width="17" height="17"/>
+        <use href="#bloom" x="11" y="33" width="14" height="14"/>
+      </svg>
+      <svg class="sprig sprig-r" viewBox="0 0 64 150">
+        <g fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
+          <path d="M26 148 C 22 120 38 100 30 74 C 24 54 36 34 34 14"/>
+          <path d="M28 126 C 19 120 13 112 11 103"/>
+          <path d="M31 92 C 42 86 50 78 53 67"/>
+          <path d="M30 64 C 23 58 18 50 18 41"/>
+        </g>
+        <g fill="currentColor" fill-opacity="0.8">
+          <ellipse cx="17" cy="136" rx="3" ry="7" transform="rotate(-58 17 136)"/>
+          <ellipse cx="35" cy="120" rx="3" ry="7" transform="rotate(58 35 120)"/>
+          <ellipse cx="22" cy="86" rx="3" ry="7" transform="rotate(-58 22 86)"/>
+          <ellipse cx="41" cy="104" rx="3" ry="7" transform="rotate(55 41 104)"/>
+          <ellipse cx="40" cy="50" rx="3" ry="6.5" transform="rotate(58 40 50)"/>
+          <ellipse cx="27" cy="28" rx="2.8" ry="6" transform="rotate(-55 27 28)"/>
+        </g>
+        <use href="#bloom" x="23" y="3" width="22" height="22"/>
+        <use href="#bloom" x="2" y="94" width="17" height="17"/>
+        <use href="#bloom" x="44" y="58" width="17" height="17"/>
+        <use href="#bloom" x="11" y="33" width="14" height="14"/>
+      </svg>
       <div class="deco-to">
-        <p>Gửi chị</p>
-        <svg class="scribble" viewBox="0 0 120 10"><path d="M2 6.2 C 24 3 52 7.4 78 4.6 S 104 3.6 118 5.2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <p>Dành tặng chị</p>
+        <div class="deco-rule"><b></b></div>
       </div>
-      <svg class="heart" viewBox="0 0 16 15"><path d="M8.2 13.6 C 4 10.4 1.2 8 1.4 4.9 C 1.6 2.4 4.5 1.6 6.2 3.2 C 7 3.9 7.6 4.7 8 5.5 C 8.6 4.3 9.6 3.1 11.2 2.7 C 13.3 2.2 15 3.9 14.5 6.2 C 13.8 9 10.8 11.2 8.2 13.6 Z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round"/></svg>
     </div>
 
     <svg class="flap" viewBox="0 0 400 150" preserveAspectRatio="none" aria-hidden="true">
       <defs>
-        <linearGradient id="flapOut" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cdac7e"/><stop offset="1" stop-color="#bf9c6e"/></linearGradient>
-        <linearGradient id="flapIn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#55161d"/><stop offset="1" stop-color="#6a1f27"/></linearGradient>
+        <linearGradient id="flapOut" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6e1e2c"/><stop offset="1" stop-color="#561520"/></linearGradient>
+        <linearGradient id="flapIn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a080d"/><stop offset="1" stop-color="#43101a"/></linearGradient>
       </defs>
       <g filter="url(#envGrain)">
         <polygon class="face-out" points="0,0 400,0 200,150" fill="url(#flapOut)"/>
         <polygon class="face-in" points="0,0 400,0 200,150" fill="url(#flapIn)"/>
-        <polygon class="face-in" points="0,0 400,0 200,150" fill="url(#linerPat)"/>
+        <polygon class="face-out" points="0,0 400,0 200,150" fill="url(#envPat)"/>
       </g>
-      <polyline class="face-out" points="0,-1.3 200,148.7 400,-1.3" fill="none" stroke="rgba(255,238,205,0.5)" stroke-width="1"/>
-      <polyline points="0,0 200,150 400,0" fill="none" stroke="rgba(70,40,12,0.3)" stroke-width="1"/>
+      <polyline class="face-out" points="25.7,8 200,138.75 374.3,8" fill="none" stroke="#cdb98e" stroke-opacity="0.5" stroke-width="1" stroke-dasharray="4 4" vector-effect="non-scaling-stroke"/>
+      <polyline points="0,0 200,150 400,0" fill="none" stroke="rgba(255,190,170,0.14)" stroke-width="1"/>
     </svg>
 
     <button class="seal" id="seal" type="button" aria-label="Chạm vào dấu sáp để mở thư">
       <svg viewBox="0 0 100 100" aria-hidden="true">
         <defs>
-          <radialGradient id="wax" cx="38%" cy="32%" r="78%">
-            <stop offset="0" stop-color="#c2323a"/>
-            <stop offset="0.55" stop-color="#9b1d26"/>
-            <stop offset="1" stop-color="#6a1119"/>
+          <radialGradient id="bronze" cx="36%" cy="30%" r="80%">
+            <stop offset="0" stop-color="#bfab83"/>
+            <stop offset="0.55" stop-color="#93805a"/>
+            <stop offset="1" stop-color="#5f4f37"/>
           </radialGradient>
-          <radialGradient id="waxIn" cx="42%" cy="38%" r="70%">
-            <stop offset="0" stop-color="#a8222b"/>
-            <stop offset="1" stop-color="#86171f"/>
+          <radialGradient id="bronzeIn" cx="42%" cy="36%" r="75%">
+            <stop offset="0" stop-color="#a8946b"/>
+            <stop offset="1" stop-color="#7a6847"/>
           </radialGradient>
         </defs>
-        <g filter="url(#waxFx)">
-          <path d="M52 9 C66 8 80 15 87 28 C93 40 92 55 88 66 C83 79 72 88 58 90 C52 91 49 97 44 94 C41 91 42 89 38 89 C24 86 12 76 9 62 C6 49 9 36 17 25 C25 14 38 10 52 9 Z" fill="url(#wax)"/>
-          <path d="M90 32 C93 30 97 32 96.500 36 C96 39 92 40 90 38 C88.500 36.500 88.500 33.500 90 32 Z" fill="#8c1a22"/>
-        </g>
-        <g filter="url(#pressFx)">
-          <circle cx="50" cy="50" r="30" fill="url(#waxIn)" stroke="#6f121a" stroke-width="1.6"/>
-          <circle cx="50" cy="50" r="26" fill="none" stroke="#6f121a" stroke-opacity="0.5" stroke-width="0.8"/>
-          <text x="50" y="64" font-family="'Great Vibes', 'Snell Roundhand', cursive" font-size="50" text-anchor="middle" fill="#6c1018">D</text>
+        <path d="M96.8 50.0 L96.4 54.1 L94.5 57.9 L92.5 61.4 L90.9 64.9 L89.4 68.4 L87.3 71.6 L84.5 74.1 L81.3 76.3 L78.8 78.8 L77.1 82.2 L75.4 86.3 L72.9 89.7 L69.2 91.2 L64.7 90.4 L60.4 88.7 L56.7 87.8 L53.4 88.8 L50.0 91.1 L46.2 93.3 L42.2 94.1 L38.4 93.2 L34.8 91.7 L31.3 90.2 L27.6 88.8 L24.2 86.8 L21.7 83.8 L20.1 79.9 L18.7 76.2 L16.5 73.5 L12.9 71.4 L8.8 69.2 L5.8 66.1 L5.2 62.0 L6.9 57.6 L9.3 53.6 L10.8 50.0 L10.8 46.6 L9.8 42.9 L9.4 39.1 L10.0 35.5 L11.5 32.0 L12.9 28.6 L14.0 24.8 L15.5 21.0 L18.0 18.0 L21.8 16.4 L26.1 15.9 L29.9 15.2 L32.8 13.2 L35.3 9.6 L38.1 5.6 L41.7 3.1 L45.9 3.1 L50.0 5.1 L53.7 7.7 L57.2 9.4 L60.7 10.2 L64.2 10.9 L67.6 12.3 L70.6 14.3 L73.5 16.4 L77.0 17.9 L80.9 19.1 L84.6 21.0 L87.0 24.1 L87.4 28.4 L86.8 32.9 L86.6 36.7 L88.3 39.7 L91.6 42.7 L95.0 46.1 Z"
+              fill="url(#bronze)" stroke="#54442e" stroke-width="1.2" stroke-linejoin="round"/>
+        <circle cx="50" cy="50" r="33" fill="url(#bronzeIn)" stroke="#5b4b33" stroke-width="1.4"/>
+        <circle cx="50" cy="50" r="31" fill="none" stroke="#cdb98e" stroke-opacity="0.45" stroke-width="1"/>
+        <g class="monogram" font-family="'Great Vibes', 'Snell Roundhand', cursive" font-size="58" text-anchor="middle">
+          <text x="49.2" y="65.2" fill="#e0cfa6" fill-opacity="0.6">D</text>
+          <text x="50.4" y="66.4" fill="#4f4029">D</text>
         </g>
       </svg>
     </button>
